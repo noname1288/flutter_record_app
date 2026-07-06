@@ -1,0 +1,23 @@
+---
+description: Keep project working wiki separated from docs
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Wiki Separation Rule
+
+## Purpose
+
+Ensure clean separation between project documentation and operational working knowledge.
+
+## Required behavior
+
+1. Use `docs/` only for documentation deliverables (guides, architecture docs, API docs, design docs).
+2. Use `wiki/` for working knowledge (project indexing, temporary/operational notes, ingestion logs, evolving implementation context).
+3. Do not duplicate the same content in both `docs/` and `wiki/`.
+4. For project-memory/index requests, default to `wiki/`.
+5. Keep links/path references consistent with the chosen location.
+
+## Tooling preference
+
+- Graph view default: Graphify for `wiki/`.

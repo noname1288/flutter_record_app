@@ -1,0 +1,265 @@
+---
+description: Core kaopiz rules that are always applied to maintain code quality and consistency
+globs: ["lib/**/*.dart"]
+alwaysApply: true
+---
+
+# Kaopiz Mobile Development Checklist
+
+## High Priority Rules
+
+1. Automatic Error Logging
+- Implement automatic error logging for all exceptions and crashes
+- Log important debugging information including:
+  - Stack trace
+  - User actions that led to the error
+  - Device information and OS version
+  - App state
+- Use proper logging levels (debug, info, warning, error)
+- Implement proper crash reporting tools (e.g., Firebase Crashlytics)
+
+2. UI/UX Interaction Standards
+- Ensure all interactive elements are easily tappable
+- Maintain minimum touch target size of 48x48 pixels
+- Implement proper padding for icon buttons
+- Follow Material Design guidelines for spacing and touch areas
+- Ensure proper contrast ratios and visibility
+
+3. Testing Requirements
+- Perform thorough testing on actual devices
+- Test on both iOS and Android platforms
+- Verify functionality in different network conditions
+- Document test results in JIRA
+
+4. Requirements Compliance
+- Ensure implementation matches design specifications
+- Follow documented user flows
+- Validate against acceptance criteria
+- Document any deviations or assumptions
+
+5. Null Safety and Exception Handling
+- Implement proper null safety checks
+- Handle all possible error states
+- Show appropriate error messages to users
+- Implement graceful fallbacks
+
+6. Data Consistency
+- Implement proper local database transactions
+- Implement proper state management
+- Handle offline/online synchronization
+- Implement proper data rollback mechanisms for local storage
+- Handle app termination and state restoration
+
+7. API Request Optimization
+- Implement proper request timeout handling
+- Handle API errors gracefully
+- Implement retry mechanisms for failed requests
+- Optimize for mobile network conditions
+- Implement proper request caching
+- Handle low bandwidth scenarios
+
+8. UI Interaction Protection
+- Prevent multiple taps on buttons during processing
+- Show loading indicators for async operations
+- Implement proper state management for UI elements
+- Re-enable interactions after operation completion
+
+9. Change Impact Documentation
+- Document impact scope in JIRA
+- Note affected screens and features
+- Document API changes and their impact
+- List potential side effects
+
+10. Security - Environment Variables
+- Use .env files for sensitive configuration
+- Never commit API keys to source control
+- Use proper key management for different environments
+- Implement secure storage for sensitive data
+
+11. Authentication
+- Implement proper token-based authentication
+- Validate all API requests
+- Handle session expiration
+- Implement secure biometric authentication when required
+
+12. Secure Data Transmission
+- Use HTTPS for all network requests
+- Implement certificate pinning
+- Encrypt sensitive data in transit
+- Use secure websocket connections when needed
+
+13. Sensitive Data Storage
+- Use secure storage for sensitive user data
+- Implement proper encryption for local storage
+- Clear sensitive data on logout
+- Follow platform-specific security guidelines
+
+14. Data Privacy
+- Minimize collection of personal information
+- Implement proper data masking
+- Follow GDPR/CCPA guidelines where applicable
+- Implement proper data deletion mechanisms
+
+## Medium Priority Rules
+
+15. Architecture Compliance
+- Follow clean architecture principles
+- Maintain proper separation of concerns
+- Use proper dependency injection
+- Follow established project patterns
+
+16. Code Documentation
+- Document complex business logic
+- Add comments for non-obvious implementations
+- Document widget parameters
+- Include example usage in comments
+
+17. Code Reusability
+- Create reusable widgets
+- Implement proper abstraction layers
+- Use proper inheritance and composition
+- Maintain DRY principles
+
+18. Version Control
+- Use proper JIRA references in commits
+- Follow branch naming conventions
+- Write descriptive commit messages
+- Create proper pull request documentation
+
+19. Edge Cases
+- Document special conditions
+- Handle rare but possible scenarios
+- Implement proper error states
+- Test edge cases thoroughly
+
+20. Conditional Logic
+- Document complex conditions
+- Implement proper else cases
+- Handle all possible states
+- Use switch statements for multiple conditions
+
+21. Concurrency
+- Handle async operations properly
+- Implement proper state management
+- Handle race conditions
+- Use proper isolates for heavy computations
+
+22. Scalability
+- Implement proper caching mechanisms
+- Handle mobile memory constraints
+- Optimize for different screen sizes and orientations
+- Support different device capabilities
+- Handle low-end device performance
+- Implement proper image scaling and caching
+
+23. Performance Optimization
+- Avoid nested loops
+- Implement proper list virtualization
+- Use const constructors
+- Implement proper image caching
+
+24. Query Optimization
+- Implement proper pagination for mobile views
+- Use efficient local database queries
+- Cache query results appropriately
+- Optimize data fetching for mobile networks
+- Implement proper offline data access
+
+25. Dependencies
+- Use trusted packages only
+- Keep dependencies up to date
+- Document dependency purposes
+- Check license compliance
+
+26. Third-party Integration
+- Follow integration guidelines
+- Implement proper error handling
+- Document integration requirements
+- Maintain vendor documentation
+
+27. Notifications
+- Implement proper notification channels
+- Handle notification permissions
+- Implement proper deep linking
+- Handle notification actions
+
+28. Testing Environment
+- Use proper mobile test data
+- Test on real mobile devices
+- Document mobile-specific test scenarios
+- Implement proper mocking for mobile components
+- Test on different OS versions and screen sizes
+
+29. Data Security
+- Use proper encryption algorithms
+- Implement secure key storage
+- Follow platform security guidelines
+- Implement proper certificate handling
+
+## Low Priority Rules
+
+30. Code Formatting
+- Follow Flutter style guide
+- Maintain consistent formatting
+- Use proper indentation
+- Follow naming conventions
+
+31. Code Length
+- Keep methods short and focused
+- Limit file length
+- Maintain proper widget structure
+- Break down complex widgets
+
+32. Code Cleanliness
+- Remove unused code
+- Clean up comments
+- Remove debug prints
+- Remove unused imports
+
+33. Performance Metrics
+- Monitor app startup time
+- Track frame rendering time
+- Monitor memory usage
+- Track battery consumption
+- Monitor app size
+- Track mobile network usage
+
+34. Code Complexity
+- Limit conditional nesting
+- Use proper design patterns
+- Break down complex logic
+- Implement proper abstractions
+
+35. Resource Optimization
+- Optimize mobile asset usage
+- Implement proper image resolution for different devices
+- Handle mobile memory efficiently
+- Clean up resources properly
+- Optimize app bundle size
+- Implement proper asset caching
+
+36. Authentication Timeout
+- Implement proper session management
+- Handle token refresh
+- Implement proper logout
+- Handle background state
+
+37. Social Authentication
+- Follow platform guidelines
+- Implement proper error handling
+- Handle cancellation properly
+- Maintain session state
+
+38. Debug Information
+- Remove debug prints in release
+- Handle logging properly
+- Implement proper error reporting
+- Clean up development artifacts
+
+39. Cache Management
+- Implement proper cache invalidation
+- Handle cache size limits
+- Clean up old cache data
+- Implement proper cache strategies
+
+These rules are mandatory for all Kaopiz mobile development projects and will be automatically enforced during code review. Each rule should be checked and validated before submitting code for review. 

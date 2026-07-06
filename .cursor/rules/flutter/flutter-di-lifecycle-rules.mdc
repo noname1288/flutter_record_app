@@ -1,0 +1,76 @@
+---
+description: Enforce correct DI lifecycle for Flutter BLoCs to avoid stale screen state
+globs: ["lib/features/**/presentation/**/*.dart", "lib/core/di/**/*.dart"]
+alwaysApply: true
+---
+
+# Flutter DI Lifecycle Rules
+
+## Purpose
+
+Prevent stale UI state caused by incorrectly scoped DI for screen-level BLoCs.
+
+## Required behavior
+
+1. **Screen/form BLoCs must not be singleton**
+   - Do not use `@singleton` or `@lazySingleton` for BLoCs that hold form/input state.
+   - Use `@injectable` (factory scope) for screen-level BLoCs.
+
+2. **Register/fresh-state screens must create new BLoC instances**
+   - Prefer `BlocProvider(create: ...)` for pages like register, edit forms, wizards, etc.
+   - Avoid `BlocProvider.value(getIt<...>())` when the screen must start with clean state each open.
+
+3. **Singleton is allowed only for shared, long-lived state**
+   - `@singleton` / `@lazySingleton` are allowed when state is intentionally shared across routes/sessions.
+   - Typical allowed cases:
+     - app session/auth state
+     - background sync or websocket coordinators
+     - feature flags / remote config caches
+     - global app settings and localization controllers
+   - If stale state on re-open would be a bug, do not use singleton.
+
+4. **UseCase/Repository can remain singleton by default**
+   - Keep `UseCase`, `Repository`, datasource, and API clients as singleton/lazySingleton when stateless or cache-safe.
+   - Why this is default:
+     - avoids unnecessary re-allocation on each navigation
+     - centralizes caching/retry/network policies in one place
+     - keeps dependencies consistent for all BLoCs using the same domain services
+   - If a repository/use case stores mutable per-screen state, refactor that state into BLoC/page scope.
+
+5. **Regenerate DI after scope changes**
+   - After changing annotations (`@lazySingleton` -> `@injectable`, etc.), run build runner to refresh `injection.config.dart`.
+
+## Quick decision guide
+
+- Use `@injectable` (factory):
+  - form screen BLoC
+  - create/edit flow BLoC
+  - any page where re-enter should start clean
+- Use `@lazySingleton` / `@singleton`:
+  - app-wide state manager intentionally shared
+  - expensive service intended to be reused
+  - infrastructure services (API clients, storage, repositories)
+
+## Example
+
+```dart
+// ✅ GOOD: fresh bloc per page open
+@injectable
+class RegisterBloc extends Bloc<RegisterEvent, RegisterState> { ... }
+
+return BlocProvider(
+  create: (_) => RegisterBloc(
+    adminRegistrationUseCase: getIt.get<AdminRegistrationUseCase>(),
+  ),
+  child: const RegisterScreen(),
+);
+
+// ❌ BAD: stale state risk
+@lazySingleton
+class RegisterBloc extends Bloc<RegisterEvent, RegisterState> { ... }
+
+return BlocProvider.value(
+  value: getIt.get<RegisterBloc>(),
+  child: const RegisterScreen(),
+);
+```

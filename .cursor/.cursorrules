@@ -1,0 +1,194 @@
+# Flutter and Dart Development Guidelines
+
+## Clean Architecture Rule
+- Every feature must follow clean architecture with proper layer separation
+- Maintain clear boundaries between presentation, domain, and data layers
+- Use dependency injection with GetIt
+  - Use singleton for services and repositories
+  - Use factory for use cases
+  - Use lazy singleton for controllers
+- Follow repository pattern for data access
+- Keep dependencies flowing inward
+- Organize code in feature-based modules
+
+## Dart General Guidelines
+
+### Basic Principles
+- Use English for all code and documentation
+- Always declare types explicitly (variables, function parameters, and return values)
+- Avoid using `dynamic` or `any`
+- Create necessary types instead of using primitives excessively
+- Don't leave blank lines within a function
+- One export per file
+- Follow SOLID principles
+- Prefer composition over inheritance
+
+### Nomenclature
+- Use PascalCase for classes
+- Use camelCase for variables, functions, and methods
+- Use underscores_case for file and directory names
+- Use UPPERCASE for environment variables
+- Avoid magic numbers and define constants
+- Start each function with a verb
+- Use verbs for boolean variables (isLoading, hasError, canDelete)
+- Use complete words instead of abbreviations except for:
+  - Standard terms (API, URL)
+  - Loop variables (i, j)
+  - Error handling (err)
+  - Context variables (ctx)
+  - HTTP parameters (req, res)
+
+### Functions and Methods
+- Keep functions short (< 20 instructions) with single responsibility
+- Use early returns and avoid deep nesting
+- Use higher-order functions when appropriate
+- Use arrow syntax for simple functions
+- Use named functions for complex logic
+- Use default parameter values
+- Follow RO-RO (Receive Object, Return Object) pattern
+- Maintain single level of abstraction
+- Declare input/output types explicitly
+
+### Classes
+- Follow SOLID principles
+- Keep classes small (< 200 instructions)
+- Limit to < 10 public methods
+- Limit to < 10 properties
+- Prefer immutability
+- Use `const` constructors where possible
+- Declare interfaces for contracts
+
+## Flutter-Specific Guidelines
+
+### Widget Structure
+- Break down complex widgets into smaller, reusable components
+- Avoid deep widget nesting
+- Utilize const constructors to reduce rebuilds
+- Keep widget tree flat for better performance
+- Follow proper widget lifecycle methods
+- Implement proper error boundaries
+
+### State Management
+- Use GetX for state management
+- Implement reactive programming with .obs properties
+- Avoid unnecessary widget rebuilds
+- Controllers should take methods as input and update UI state
+- Use proper state management patterns
+
+### Navigation and Routing
+- Use AutoRoute for navigation
+- Use extras to pass data between pages
+- Implement proper routing structure
+
+### Performance
+- Cache network requests appropriately
+- Profile performance regularly
+- Implement proper list view optimization
+- Use proper build methods optimization
+- Implement proper memory management
+- Use proper platform channels when needed
+
+### Code Organization
+- Follow the standard project structure:
+  ```
+  lib/
+    core/
+      constants/
+      theme/
+      utils/
+      widgets/
+    features/
+      feature_name/
+        data/
+          datasources/
+          models/
+          repositories/
+        domain/
+          entities/
+          repositories/
+          usecases/
+        presentation/
+          bloc/
+          pages/
+          widgets/
+    l10n/
+    main.dart
+  ```
+
+### Testing
+- Write unit tests for business logic
+- Implement widget tests for UI components
+- Use integration tests for API modules
+- Follow Arrange-Act-Assert pattern
+- Use clear test naming conventions:
+  - inputX
+  - mockX
+  - actualX
+  - expectedX
+- Write acceptance tests for modules
+- Follow Given-When-Then convention
+
+### Error Handling
+- Use exceptions for unexpected errors
+- Implement proper error boundaries
+- Add context when catching exceptions
+- Use global error handler when appropriate
+
+### Additional Best Practices
+- Use ThemeData for consistent styling
+- Implement proper localization with AppLocalizations
+- Use extensions for reusable code
+- Follow Material 3 design principles
+- Implement proper form validation
+- Use proper asset management
+- Follow platform-specific design guidelines
+
+## Additional Flutter Guidelines
+
+### Data Management
+- Don't abuse primitive types and encapsulate data in composite types
+- Avoid data validations in functions and use classes with internal validation
+- Prefer immutability for data
+- Use readonly for data that doesn't change
+- Use as const for literals that don't change
+
+### Exception Handling Specifics
+- Use exceptions to handle errors you don't expect
+- If you catch an exception, it should be to:
+  - Fix an expected problem
+  - Add context
+  - Otherwise, use a global handler
+
+### Module Organization
+- See modules if you need to organize code into modules
+- See controllers if you need to organize code into controllers
+- See services if you need to organize code into services
+- See repositories if you need to organize code into repositories
+- See entities if you need to organize code into entities
+
+### Caching Strategy
+- See cache if you need to cache data
+- Controller always takes methods as input and updates the UI state that effects the UI
+
+### Widget Tree Optimization
+- When a widget tree becomes too deep, it can lead to longer build times and increased memory usage
+- Flutter needs to traverse the entire tree to render the UI, so a flatter structure improves efficiency
+- A flatter widget structure makes it easier to understand and modify the code
+- Reusable components facilitate better code organization
+- Deeply nested widgets can make state management more challenging
+- By keeping the tree shallow, it becomes easier to manage state and pass data between widgets
+
+### Testing Specifics
+- Follow the Arrange-Act-Assert convention for tests
+- Name test variables clearly following conventions:
+  - inputX for input values
+  - mockX for mock objects
+  - actualX for actual results
+  - expectedX for expected results
+- Write unit tests for each public function
+- Use test doubles to simulate dependencies
+  - Except for third-party dependencies that are not expensive to execute
+- Write acceptance tests for each module
+- Follow the Given-When-Then convention for acceptance tests
+
+These rules are mandatory and will be automatically enforced. While maintaining flexibility to adapt to existing project structures, these guidelines ensure code quality, maintainability, and performance.
