@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:record_app/features/record-detail/presentation/detail_record_page.dart';
-import 'package:record_app/features/record-list/presentation/list_record_page.dart';
+import 'package:record_app/features/record_list/presentation/list_record_page.dart';
 
 class AppRouter {
   AppRouter._();
@@ -13,11 +13,11 @@ class AppRouter {
     routes: [
       GoRoute(
         path: recordListPath,
-        builder: (context, state) => ListRecordPage(),
+        builder: (context, state) => const ListRecordPage(),
       ),
       GoRoute(
         path: recordDetailPath,
-        builder: (context, state) => DetailRecordPage(),
+        builder: (context, state) => const DetailRecordPage(),
       ),
     ],
   );
